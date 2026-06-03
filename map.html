@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Map - Campus Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .locations-list {
+            margin-top: 3rem;
+            background-color: var(--bg-paper);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .locations-list h3 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .location-item {
+            background-color: var(--bg-cream);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        
+        .location-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--primary-color);
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+        
+        .location-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .location-desc {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .instruction-box {
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+        }
+        
+        .instruction-box p {
+            color: var(--text-medium);
+            margin: 0;
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="thapar-logo.png" alt="Thapar Logo" class="college-logo">
+                <div>
+                    <h1>Campus Connect</h1>
+                    <p class="tagline">Your Campus Companion</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html" class="active">Campus Map</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="social.html">Social</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Map Section -->
+    <section class="map-container">
+        <div class="container">
+            <h2 class="section-title fade-in">Campus Map & Location Directory</h2>
+
+            <div class="instruction-box">
+                <p>🗺️ <strong>Explore the complete Thapar University campus</strong> - View the map and browse all campus locations listed below!</p>
+            </div>
+
+            <div class="map-wrapper">
+                <img src="campus-map.jpg" alt="Thapar University Campus Map" class="campus-map">
+            </div>
+
+            <!-- Complete Locations List -->
+            <div class="locations-list">
+                <h3>📍 Campus Locations Directory</h3>
+                <div class="locations-grid">
+                    <div class="location-item">
+                        <div class="location-name">Main Entrance</div>
+                        <div class="location-desc">Primary campus entry gate</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Main Auditorium</div>
+                        <div class="location-desc">Central events & ceremonies venue</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Street Café</div>
+                        <div class="location-desc">Outdoor café & hangout spot</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Aahar</div>
+                        <div class="location-desc">Main student dining hall</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">H Block</div>
+                        <div class="location-desc">Labs and classrooms building</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">E Block</div>
+                        <div class="location-desc">Classroom academic block</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">F Block</div>
+                        <div class="location-desc">Classroom academic block</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">B Block</div>
+                        <div class="location-desc">Classes and lab facilities</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">C Block</div>
+                        <div class="location-desc">Engineering labs and classes</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">D Block</div>
+                        <div class="location-desc">Classroom block</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Mechanical Workshop</div>
+                        <div class="location-desc">Practical mechanical training area</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Gate 2</div>
+                        <div class="location-desc">R&D access gate</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">TSLAS</div>
+                        <div class="location-desc">Language & soft skills center</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Library</div>
+                        <div class="location-desc">Main learning & resource hub</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">LP 101–103</div>
+                        <div class="location-desc">Classroom lecture rooms cluster</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">LT Block</div>
+                        <div class="location-desc">Large lecture theaters</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Waterbody Café</div>
+                        <div class="location-desc">Food zone near pond</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Dean Office (DOAA)</div>
+                        <div class="location-desc">Academic administration office</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">CS Block</div>
+                        <div class="location-desc">CSED department labs</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">SBOP Lawns</div>
+                        <div class="location-desc">Open event gathering space</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Guest House</div>
+                        <div class="location-desc">Visitor accommodation facility</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Stationary Shop (G Block & COS)</div>
+                        <div class="location-desc">Books and supplies store</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">G Block</div>
+                        <div class="location-desc">Engineering classes and labs</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">G Block Canteen</div>
+                        <div class="location-desc">Food zone inside G Block</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">TAN Auditorium (TAN)</div>
+                        <div class="location-desc">Secondary auditorium & events hall</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Hostel F</div>
+                        <div class="location-desc">Student living hostel</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Nirvana</div>
+                        <div class="location-desc">Central student relaxation park</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Hotel Q</div>
+                        <div class="location-desc">Student accommodation building</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Hostel PG</div>
+                        <div class="location-desc">Premium student accommodation</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Hostels A, B, O, C, D, M, J, H, K, L</div>
+                        <div class="location-desc">Student residential hostels</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Hostels FRA, FRB, FRC, FRD, FRE</div>
+                        <div class="location-desc">Student residential hostels</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Sports Complex</div>
+                        <div class="location-desc">Pool, gym, courts & turf</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">COS (Center of Student Life)</div>
+                        <div class="location-desc">Food & lifestyle zone</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Synthetic Track</div>
+                        <div class="location-desc">Athletics running track</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Fete Area</div>
+                        <div class="location-desc">Annual fest & event ground</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Cricket Ground</div>
+                        <div class="location-desc">Outdoor cricket field</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Health Center</div>
+                        <div class="location-desc">Medical dispensary & clinic</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Staff Quarters</div>
+                        <div class="location-desc">Residential area for staff</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">Polytechnic College</div>
+                        <div class="location-desc">Vocational education wing</div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-name">TIFAC-CORE</div>
+                        <div class="location-desc">Research & innovation facility</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Campus Connect - Thapar University</p>
+            <p>Connecting Students, One Click at a Time</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

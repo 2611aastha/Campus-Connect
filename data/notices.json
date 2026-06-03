@@ -1,0 +1,46 @@
+[{
+        "notice_id": "N001",
+        "title": "Mid-Sem Exam Timetable Released",
+        "posted_by": "Examination Cell",
+        "date": "2025-11-18",
+        "priority": "High",
+        "description": "Mid-semester exam schedule for all departments has been uploaded to the ERP portal.",
+        "attachment": "timetable.pdf"
+    },
+    {
+        "notice_id": "N002",
+        "title": "Library Closed on Saturday",
+        "posted_by": "Library Department",
+        "date": "2025-11-22",
+        "priority": "Medium",
+        "description": "Library will remain closed due to system maintenance.",
+        "attachment": ""
+    },
+    {
+        "notice_id": "N003",
+        "title": "Bus Route Change for City Hostel Students",
+        "posted_by": "Transport Committee",
+        "date": "2025-11-24",
+        "priority": "High",
+        "description": "Morning bus timing shifted to 8:10 AM instead of 8:30 AM from Monday.",
+        "attachment": "new_route.jpg"
+    },
+    {
+        "notice_id": "N004",
+        "title": "Fee Payment Reminder",
+        "posted_by": "Accounts Department",
+        "date": "2025-11-15",
+        "priority": "High",
+        "description": "Last date for semester fee payment is 30th November.",
+        "attachment": ""
+    },
+    {
+        "notice_id": "N005",
+        "title": "Lost and Found – Apple AirPods",
+        "posted_by": "Student Affairs",
+        "date": "2025-11-16",
+        "priority": "Low",
+        "description": "A pair of Apple AirPods found near Boys Hostel Block B. Contact Student Affairs to claim.",
+        "attachment": "airpods_image.png"
+    }
+]

@@ -1,0 +1,56 @@
+[{
+        "event_id": "E001",
+        "title": "TechnoVision Hackathon 2025",
+        "club": "Computer Science Club",
+        "location": "Auditorium Hall",
+        "date": "2025-12-05",
+        "time": "10:00 AM",
+        "description": "A 24-hour hackathon focused on AI, robotics, and software development.",
+        "registration_link": "https://college.edu/technovision",
+        "status": "Upcoming"
+    },
+    {
+        "event_id": "E002",
+        "title": "Cultural Night – Bollywood Fiesta",
+        "club": "Cultural Committee",
+        "location": "Open Air Theatre",
+        "date": "2025-12-08",
+        "time": "6:30 PM",
+        "description": "Dance, music, drama and fun events celebrating Indian culture.",
+        "registration_link": "https://college.edu/culturalnight",
+        "status": "Upcoming"
+    },
+    {
+        "event_id": "E003",
+        "title": "Sports League – Cricket Finals",
+        "club": "Sports Club",
+        "location": "College Ground",
+        "date": "2025-12-10",
+        "time": "4:00 PM",
+        "description": "Final cricket match between CSE and Mechanical Department.",
+        "registration_link": "https://college.edu/sportsleague",
+        "status": "Upcoming"
+    },
+    {
+        "event_id": "E004",
+        "title": "Photography Workshop",
+        "club": "Media Club",
+        "location": "Seminar Room 2B",
+        "date": "2025-11-20",
+        "time": "11:00 AM",
+        "description": "Learn DSLR handling, framing and lighting techniques.",
+        "registration_link": "https://college.edu/photo-workshop",
+        "status": "Completed"
+    },
+    {
+        "event_id": "E005",
+        "title": "Internship & Placement Awareness Talk",
+        "club": "Training & Placement Cell",
+        "location": "IT Block Conference Room",
+        "date": "2025-11-25",
+        "time": "2:00 PM",
+        "description": "Guidance for 3rd & 4th year students on resume building, LinkedIn and placements.",
+        "registration_link": "https://college.edu/placementtalk",
+        "status": "Completed"
+    }
+]

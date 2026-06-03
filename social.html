@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Space - Campus Connect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="thapar-logo.png" alt="Thapar Logo" class="college-logo">
+                <div>
+                    <h1>Campus Connect</h1>
+                    <p class="tagline">Your Campus Companion</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Campus Map</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="social.html" class="active">Social</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Social Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title fade-in"> Social Space</h2>
+
+            <!-- Tabs -->
+            <div class="social-tabs">
+                <button class="tab-btn active" data-tab="lost-found">Lost & Found</button>
+                <button class="tab-btn" data-tab="ride-share">Ride Share</button>
+                <button class="tab-btn" data-tab="polls">Quick Polls</button>
+            </div>
+
+            <!-- Lost & Found Tab -->
+            <div class="tab-content active" id="lost-found">
+                <div style="background-color: var(--bg-paper); padding: 2rem; border-radius: 8px; border: 2px solid var(--border-color); margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
+                        <> Post Lost/Found Item</h3>
+                    <form id="lostFoundForm">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="lf-type" required>
+                                <option value="">Select...</option>
+                                <option value="Lost">Lost</option>
+                                <option value="Found">Found</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" id="lf-item" placeholder="e.g., Blue Water Bottle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="lf-description" placeholder="Provide details about the item..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Info</label>
+                            <input type="text" id="lf-contact" placeholder="Phone or Email" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Post Item</button>
+                    </form>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Recent Posts</h3>
+                <div class="posts-container" id="lostFoundPosts">
+                    <!-- Sample posts -->
+                    
+                </div>
+            </div>
+
+            <!-- Ride Share Tab -->
+            <div class="tab-content" id="ride-share">
+                <div style="background-color: var(--bg-paper); padding: 2rem; border-radius: 8px; border: 2px solid var(--border-color); margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">🚗 Post Ride</h3>
+                    <form id="rideShareForm">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" id="ride-from" placeholder="Starting location" required>
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" id="ride-to" placeholder="Destination" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time</label>
+                            <input type="datetime-local" id="ride-datetime" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Available Seats</label>
+                            <input type="number" id="ride-seats" min="1" max="4" placeholder="1-4" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Info</label>
+                            <input type="text" id="ride-contact" placeholder="Phone number" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Post Ride</button>
+                    </form>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Available Rides</h3>
+                <div id="rideSharePosts">
+                    <!-- Sample rides -->
+                    <div class="ride-card">
+                        <div class="car-icon">🚙</div>
+                        <div class="ride-details">
+                            <div class="ride-route">Thapar → Chandigarh</div>
+                            <div class="ride-info">📅 Dec 1, 4:00 PM | 🪑 2 seats available</div>
+                            <div class="ride-info">📞 Contact: +91 98765 12345</div>
+                        </div>
+                    </div>
+                    <div class="ride-card">
+                        <div class="car-icon">🚗</div>
+                        <div class="ride-details">
+                            <div class="ride-route">Campus → Railway Station</div>
+                            <div class="ride-info">📅 Dec 2, 6:30 AM | 🪑 3 seats available</div>
+                            <div class="ride-info">📞 Contact: +91 87654 32109</div>
+                        </div>
+                    </div>
+                    <div class="ride-card">
+                        <div class="car-icon">🚕</div>
+                        <div class="ride-details">
+                            <div class="ride-route">Hostel → Airport</div>
+                            <div class="ride-info">📅 Dec 5, 5:00 AM | 🪑 1 seat available</div>
+                            <div class="ride-info">📞 Contact: +91 76543 21098</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Polls Tab -->
+            <div class="tab-content" id="polls">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">📊 Quick Polls</h3>
+
+                <!-- Poll 1 -->
+                <div class="poll-container">
+                    <div class="poll-question">Best place to study on campus?</div>
+                    <div class="poll-options" id="poll1">
+                        <div class="poll-option">
+                            <button onclick="vote('poll1', 0)">Library</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll1', 1)">Nirvana</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll1', 2)">Hostel Room</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll1', 3)">Empty Classroom</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poll 2 -->
+                <div class="poll-container">
+                    <div class="poll-question">Favorite campus hangout spot?</div>
+                    <div class="poll-options" id="poll2">
+                        <div class="poll-option">
+                            <button onclick="vote('poll2', 0)">COS Food Court</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll2', 1)">Street Café</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll2', 2)">Sports Complex</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll2', 3)">Waterbody Café</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Poll 3 - NEW -->
+                <div class="poll-container">
+                    <div class="poll-question">Which yearly event are students most excited about?</div>
+                    <div class="poll-options" id="poll3">
+                        <div class="poll-option">
+                            <button onclick="vote('poll3', 0)">Saturnalia</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll3', 1)">Urja</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll3', 2)">Izhaar</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll3', 3)">Virsa</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poll 4 - NEW -->
+                <div class="poll-container">
+                    <div class="poll-question">Which sports facility do students use most often?</div>
+                    <div class="poll-options" id="poll4">
+                        <div class="poll-option">
+                            <button onclick="vote('poll4', 0)">Football Turf</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll4', 1)">Badminton Court</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll4', 2)">Cricket Ground</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll4', 3)">Tennis Court</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poll 5 - NEW -->
+                <div class="poll-container">
+                    <div class="poll-question">Which campus facility should be upgraded next?</div>
+                    <div class="poll-options" id="poll5">
+                        <div class="poll-option">
+                            <button onclick="vote('poll5', 0)">Sports Complex</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll5', 1)">COS Food Court</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll5', 2)">Library Seating</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                        <div class="poll-option">
+                            <button onclick="vote('poll5', 3)">Hostel Wi-Fi</button>
+                            <div class="poll-result" style="display: none;">
+                                <div class="poll-bar" style="width: 0%;"></div>
+                                <div class="poll-percentage">0% (0 votes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Campus Connect - Thapar University</p>
+            <p>Connecting Students, One Click at a Time</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active from all tabs and contents
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Add active to clicked tab
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        let lostData = [];
+
+// FETCH FROM BACKEND
+async function fetchLostItems() {
+    const res = await fetch("http://localhost:5000/lostfound");
+    const data = await res.json();
+    lostData = data;
+    renderLost(lostData);
+}
+
+// RENDER FUNCTION
+function renderLost(items) {
+    const container = document.getElementById("lostFoundPosts");
+    container.innerHTML = "";
+
+    items.forEach(item => {
+        const post = document.createElement("div");
+        post.className = "post-item";
+
+        post.innerHTML = `
+            <div class="post-header">
+                ${item.status === 'Lost' ? '🔴' : '🟢'} ${item.status.toUpperCase()} - ${item.item_name}
+            </div>
+            <div class="post-description">${item.description}</div>
+            <div class="post-contact">Contact: ${item.contact}</div>
+        `;
+
+        container.appendChild(post);
+    });
+}
+
+// FORM SUBMIT → SAVE TO DB
+document.getElementById("lostFoundForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const data = {
+        item_name: document.getElementById("lf-item").value,
+        description: document.getElementById("lf-description").value,
+        location: "Campus", // optional
+        date: new Date(),
+        status: document.getElementById("lf-type").value,
+        contact: document.getElementById("lf-contact").value
+    };
+
+    await fetch("http://localhost:5000/lostfound", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    fetchLostItems(); // refresh
+    this.reset();
+});
+
+// CALL ON PAGE LOAD
+document.addEventListener("DOMContentLoaded", () => {
+    fetchLostItems();
+});
+
+        let rideData = [];
+
+// FETCH RIDES
+async function fetchRides() {
+    const res = await fetch("http://localhost:5000/rides");
+    const data = await res.json();
+    rideData = data;
+    renderRides(rideData);
+}
+
+// RENDER RIDES
+function renderRides(rides) {
+    const container = document.getElementById("rideSharePosts");
+    container.innerHTML = "";
+
+    rides.forEach(ride => {
+        const card = document.createElement("div");
+        card.className = "ride-card";
+
+        card.innerHTML = `
+            <div class="car-icon">🚗</div>
+            <div class="ride-details">
+                <div class="ride-route">${ride.from} → ${ride.to}</div>
+                <div class="ride-info">
+                    📅 ${new Date(ride.datetime).toLocaleString()} | 🪑 ${ride.seats} seats
+                </div>
+                <div class="ride-info">📞 ${ride.contact}</div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+// FORM SUBMIT
+document.getElementById("rideShareForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const data = {
+        from: document.getElementById("ride-from").value,
+        to: document.getElementById("ride-to").value,
+        datetime: document.getElementById("ride-datetime").value,
+        seats: document.getElementById("ride-seats").value,
+        contact: document.getElementById("ride-contact").value
+    };
+
+    await fetch("http://localhost:5000/rides", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    fetchRides();
+    this.reset();
+});
+
+// LOAD ON PAGE
+document.addEventListener("DOMContentLoaded", () => {
+    fetchRides();
+});
+
+        // Polling System
+        const pollData = {
+    poll1: [0, 0, 0, 0],
+    poll2: [0, 0, 0, 0],
+    poll3: [0, 0, 0, 0],
+    poll4: [0, 0, 0, 0],
+    poll5: [0, 0, 0, 0]
+};
+
+        function vote(pollId, optionIndex) {
+            // Increment vote
+            pollData[pollId][optionIndex]++;
+
+            // Calculate total votes
+            const totalVotes = pollData[pollId].reduce((a, b) => a + b, 0);
+
+            // Update UI
+            const pollOptions = document.querySelectorAll(`#${pollId} .poll-option`);
+            pollOptions.forEach((option, index) => {
+                const button = option.querySelector('button');
+                const result = option.querySelector('.poll-result');
+                const bar = result.querySelector('.poll-bar');
+                const percentage = result.querySelector('.poll-percentage');
+
+                // Hide button, show results
+                button.style.display = 'none';
+                result.style.display = 'block';
+
+                // Calculate percentage
+                const percent = totalVotes > 0 ? (pollData[pollId][index] / totalVotes * 100).toFixed(1) : 0;
+
+                // Update bar and text
+                bar.style.width = percent + '%';
+                percentage.textContent = `${percent}% (${pollData[pollId][index]} votes)`;
+            });
+        }
+    </script>
+</body>
+
+</html>

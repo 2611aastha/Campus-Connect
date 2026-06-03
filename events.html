@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Hub - Campus Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="thapar-logo.png" class="college-logo">
+                <div>
+                    <h1>Campus Connect</h1>
+                    <p class="tagline">Your Campus Companion</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Campus Map</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="social.html">Social</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Events Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Events Hub</h2>
+
+                <div class="add-event-section">
+    <h3 class="add-event-title">Add Event</h3>
+        <form id="eventForm">
+            <input type="text" id="title" placeholder="Event Title" required>
+            <input type="text" id="club" placeholder="Club" required>
+            <input type="text" id="location" placeholder="Location" required>
+            <input type="date" id="date" required>
+            <input type="text" id="time" placeholder="Time" required>
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+    <h3> Event Analytics</h3>
+
+            <div id="analytics" class="analytics-container">
+
+    <div class="chart-box">
+        <h4>Events per Club</h4>
+        <canvas id="clubChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <h4>Status Distribution</h4>
+        <canvas id="statusChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <h4>Events per Month</h4>
+        <canvas id="monthChart"></canvas>
+    </div>
+
+</div>
+    </div>
+</div>
+
+<div class="controls-row">
+
+    <input 
+        type="text" 
+        id="eventSearch" 
+        placeholder="Search events..." 
+        class="search-bar"
+    />
+
+    <select id="eventSort" class="sort-dropdown">
+        <option value="latest">Sort by Latest</option>
+        <option value="oldest">Sort by Oldest</option>
+        <option value="name">Sort by Name</option>
+    </select>
+
+</div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming Only</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="club">By Club</button>
+            </div>
+
+            <!-- Club Dropdown -->
+            <div id="clubFilterDropdown" style="display: none; text-align: center; margin-bottom: 2rem;">
+                <select id="clubSelect" style="width: 300px; padding: 0.7rem;">
+                    <option value="all">All Clubs</option>
+                </select>
+            </div>
+
+            <!-- Events Container -->
+            <div class="events-grid" id="eventsContainer"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Campus Connect</p>
+        </div>
+    </footer>
+
+    <script>
+        console.log("JS LOADING");
+        let eventsData = []; // now comes from backend
+        let currentFilter = "all";
+        let clubChart, statusChart, monthChart;
+let currentClub = "all";
+
+        // FETCH DATA FROM BACKEND
+            async function fetchEvents() {
+        try {
+            const res = await fetch("http://localhost:5000/events");
+            const data = await res.json();
+
+            console.log("Fetched data:", data); // debug
+
+            eventsData = data;
+
+           applyAllFilters();  // 🔥 FORCE RENDER HERE
+            populateClubDropdown();
+
+        } catch (err) {
+            console.error("Error fetching events:", err);
+        }
+    }
+
+        // RENDER EVENTS
+        function renderEvents(events) {
+    const container = document.getElementById('eventsContainer');
+    container.innerHTML = '';
+
+    if (events.length === 0) {
+        container.innerHTML = "<p style='text-align:center;'>No events found</p>";
+        return;
+    }
+
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = `event-card ${event.status.trim().toLowerCase()}`;
+
+        eventCard.innerHTML = `
+            <div class="event-header">
+                <div>
+                    <h3 class="event-title">${event.title}</h3>
+                    <p style="color: var(--secondary-color); font-style: italic;">
+                        ${event.club}
+                    </p>
+                </div>
+                <span class="status-badge ${event.status.trim().toLowerCase()}">
+                    ${event.status}
+                </span>
+            </div>
+
+            <div class="event-meta">
+                <span>📅 ${formatDate(event.date)}</span>
+                <span>⏰ ${event.time}</span>
+                <span>📍 ${event.location}</span>
+            </div>
+        `;
+
+        container.appendChild(eventCard);
+    });
+}
+
+        // FORMAT DATE
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toDateString();
+        }
+
+        // GET CLUBS
+        function getUniqueClubs() {
+            return [...new Set(eventsData.map(e => e.club))];
+        }
+
+        // POPULATE DROPDOWN
+        function populateClubDropdown() {
+            const clubSelect = document.getElementById('clubSelect');
+            clubSelect.innerHTML = '<option value="all">All Clubs</option>';
+
+            getUniqueClubs().forEach(club => {
+                const option = document.createElement('option');
+                option.value = club;
+                option.textContent = club;
+                clubSelect.appendChild(option);
+            });
+        }
+
+        // FILTER LOGIC
+                    
+                            function filterEvents(type, club = null) {
+                console.log("Filter clicked:", type);
+                console.log(eventsData);
+
+                let filtered = [];
+
+                if (type === 'all') {
+                    filtered = eventsData;
+                } 
+                else if (type === 'upcoming') {
+                    filtered = eventsData.filter(e => e.status.trim().toLowerCase() === 'upcoming');
+                } 
+                else if (type === 'completed') {
+                    filtered = eventsData.filter(e => e.status.trim().toLowerCase() === 'completed');
+                } 
+                else if (type === 'club') {
+                    if (club && club !== 'all') {
+                        filtered = eventsData.filter(e => e.club.trim() === club.trim());
+                    } else {
+                        filtered = eventsData;
+                    }
+                }
+
+                console.log("Filtered data:", filtered); // IMPORTANT DEBUG
+
+                renderEvents(filtered);
+            }
+
+            async function loadAnalytics() {
+    try {
+        const clubRes = await fetch("http://localhost:5000/analytics/events-per-club");
+        const clubData = await clubRes.json();
+
+        const statusRes = await fetch("http://localhost:5000/analytics/status-count");
+        const statusData = await statusRes.json();
+
+        const monthRes = await fetch("http://localhost:5000/analytics/events-per-month");
+        const monthData = await monthRes.json();
+
+        // ================= CLUB CHART =================
+        const clubs = clubData.map(c => c._id);
+        const clubCounts = clubData.map(c => c.totalEvents);
+
+        if (clubChart) clubChart.destroy();
+
+clubChart = new Chart(document.getElementById("clubChart"), {
+            type: "bar",
+            data: {
+                labels: clubs,
+                datasets: [{
+                    label: "Events per Club",
+                    data: clubCounts
+                }]
+            },
+            options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+        });
+
+        // ================= STATUS CHART =================
+        const statuses = statusData.map(s => s._id);
+        const statusCounts = statusData.map(s => s.count);
+
+        if (statusChart) statusChart.destroy();
+
+statusChart = new Chart(document.getElementById("statusChart"), {
+            type: "pie",
+            data: {
+                labels: statuses,
+                datasets: [{
+                    label: "Status Distribution",
+                    data: statusCounts
+                }]
+            },
+            options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+        });
+
+        // ================= MONTH CHART =================
+        const months = monthData.map(m => "Month " + m._id);
+        const monthCounts = monthData.map(m => m.totalEvents);
+
+        if (monthChart) monthChart.destroy();
+
+monthChart = new Chart(document.getElementById("monthChart"), {
+            type: "line",
+            data: {
+                labels: months,
+                datasets: [{
+                    label: "Events per Month",
+                    data: monthCounts
+                }]
+            },
+            options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+        });
+
+    } catch (err) {
+        console.error("Analytics error:", err);
+    }
+}
+
+function applyAllFilters() {
+
+    let filtered = [...eventsData];
+
+    // 🔍 SEARCH
+    const searchText = document.getElementById("eventSearch").value.toLowerCase();
+    filtered = filtered.filter(event =>
+        event.title.toLowerCase().includes(searchText) ||
+        event.club.toLowerCase().includes(searchText)
+    );
+
+    // 🎯 FILTER TYPE
+    if (currentFilter === "upcoming") {
+        filtered = filtered.filter(e => e.status.toLowerCase() === "upcoming");
+    } 
+    else if (currentFilter === "completed") {
+        filtered = filtered.filter(e => e.status.toLowerCase() === "completed");
+    }
+
+    // 🏫 CLUB FILTER
+    if (currentFilter === "club" && currentClub !== "all") {
+        filtered = filtered.filter(e => e.club === currentClub);
+    }
+
+    // 🔽 SORT
+    const sortType = document.getElementById("eventSort").value;
+
+    if (sortType === "latest") {
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } 
+    else if (sortType === "oldest") {
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } 
+    else if (sortType === "name") {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    renderEvents(filtered);
+}
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAnalytics();
+
+    fetchEvents();
+
+    // FILTER BUTTONS
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+
+        document.querySelectorAll('.filter-btn')
+            .forEach(b => b.classList.remove('active'));
+
+        this.classList.add('active');
+
+        currentFilter = this.dataset.filter;
+
+        if (currentFilter === "club") {
+            document.getElementById('clubFilterDropdown').style.display = 'block';
+        } else {
+            document.getElementById('clubFilterDropdown').style.display = 'none';
+        }
+
+        applyAllFilters();
+    });
+});
+
+    // CLUB DROPDOWN
+    document.getElementById('clubSelect')
+    .addEventListener('change', function () {
+        currentClub = this.value;
+        applyAllFilters();
+    });
+
+    // ADD EVENT FORM
+    const form = document.getElementById("eventForm");
+
+    form.addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const eventData = {
+            event_id: "E" + Math.floor(Math.random() * 1000),
+            title: document.getElementById("title").value,
+            club: document.getElementById("club").value,
+            location: document.getElementById("location").value,
+            date: document.getElementById("date").value,
+            time: document.getElementById("time").value,
+            tags: [],
+            participants: []
+        };
+
+        await fetch("http://localhost:5000/events", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(eventData)
+        });
+
+        alert("Event Added!");
+
+        await fetchEvents();
+        loadAnalytics();
+
+        this.reset();
+
+        // OPTIONAL: automatically show All Events
+        applyAllFilters();
+
+    });
+
+    document.getElementById("eventSearch")
+    .addEventListener("input", applyAllFilters);
+
+document.getElementById("eventSort")
+    .addEventListener("change", applyAllFilters);
+
+});
+
+
+        
+    </script>
+
+</body>
+</html>

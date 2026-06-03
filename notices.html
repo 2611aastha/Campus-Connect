@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Board - Campus Connect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="thapar-logo.png" alt="Thapar Logo" class="college-logo">
+                <div>
+                    <h1>Campus Connect</h1>
+                    <p class="tagline">Your Campus Companion</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="map.html">Campus Map</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="notices.html" class="active">Notices</a></li>
+                <li><a href="social.html">Social</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Notices Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title fade-in"> Digital Notice Board</h2>
+
+            <div class="controls-row">
+
+    <input 
+        type="text" 
+        id="noticeSearch" 
+        placeholder="Search notices..." 
+        class="search-bar"
+    />
+
+    <select id="noticeSort" class="sort-dropdown">
+        <option value="latest">Sort by Latest</option>
+        <option value="oldest">Sort by Oldest</option>
+        <option value="priority">Sort by Priority</option>
+    </select>
+
+</div>
+
+            <!-- Filters -->
+                        <div class="filters">
+
+<button class="filter-btn active" data-filter="all">All Notices</button>
+
+<button class="filter-btn" data-filter="high">High Priority</button>
+
+<button class="filter-btn" data-filter="medium">Medium Priority</button>
+
+<button class="filter-btn" data-filter="low">Low Priority</button>
+
+</div>
+
+                            <h3> Notice Analytics</h3>  
+                <p><b>Priority Distribution:</b> <span id="noticeStats"></span></p>
+
+            <!-- Notices List -->
+            <div class="notices-list" id="noticesContainer">
+                <!-- Notices will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Campus Connect - Thapar University</p>
+            <p>Connecting Students, One Click at a Time</p>
+        </div>
+    </footer>
+
+    <script>
+
+let noticesData = [];
+let currentNoticeFilter = "all";
+
+async function fetchNotices() {
+    try {
+        const res = await fetch("http://localhost:5000/notices");
+        const data = await res.json();
+        noticesData = data;
+applyNoticeFilters();
+    } catch (err) {
+        console.error("Error fetching notices:", err);
+    }
+}
+
+
+
+// RENDER NOTICES
+function renderNotices(notices) {
+
+    const container =
+        document.getElementById("noticesContainer");
+
+    container.innerHTML = "";
+
+    if (notices.length === 0) {
+
+        container.innerHTML =
+            "<p style='text-align:center;'>No notices found.</p>";
+
+        return;
+
+    }
+
+
+
+    // SORT BY DATE (LATEST FIRST)
+
+    const sorted =
+        notices.sort(
+            (a, b) =>
+                new Date(b.date) - new Date(a.date)
+        );
+
+
+    sorted.forEach(notice => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            `notice-card ${notice.priority.toLowerCase()}`;
+
+
+        card.innerHTML = `
+
+            <div class="notice-header">
+
+                <div>
+
+                    <h3 class="notice-title">
+                        ${notice.title}
+                    </h3>
+
+                    <p style="
+                        color: var(--secondary-color);
+                        font-style: italic;
+                        margin-bottom: 0.5rem;
+                    ">
+                        ${notice.department}
+                    </p>
+
+                </div>
+
+                <span class="
+                    priority-badge
+                    ${notice.priority.toLowerCase()}
+                ">
+                    ${notice.priority} Priority
+                </span>
+
+            </div>
+
+            <div class="notice-meta">
+
+                <span>
+                    📅 ${formatDate(notice.date)}
+                </span>
+
+            </div>
+
+            <p class="notice-description">
+                ${notice.content}
+            </p>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+// DATE FORMAT
+function formatDate(dateStr) {
+
+    const date =
+        new Date(dateStr);
+
+    return date.toDateString();
+
+}
+
+
+// FILTER NOTICES
+function applyNoticeFilters() {
+
+    let filtered = [...noticesData];
+
+    // 🔍 SEARCH
+    const searchText = document.getElementById("noticeSearch").value.toLowerCase();
+    filtered = filtered.filter(n =>
+        n.title.toLowerCase().includes(searchText)
+    );
+
+    // 🎯 FILTER
+    if (currentNoticeFilter === "high") {
+        filtered = filtered.filter(n => n.priority.toLowerCase() === "high");
+    } 
+    else if (currentNoticeFilter === "medium") {
+        filtered = filtered.filter(n => n.priority.toLowerCase() === "medium");
+    } 
+    else if (currentNoticeFilter === "low") {
+        filtered = filtered.filter(n => n.priority.toLowerCase() === "low");
+    }
+
+    // 🔽 SORT
+    const sortType = document.getElementById("noticeSort").value;
+
+    if (sortType === "latest") {
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } 
+    else if (sortType === "oldest") {
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } 
+    else if (sortType === "priority") {
+        const order = { high: 1, medium: 2, low: 3 };
+        filtered.sort((a, b) => order[a.priority] - order[b.priority]);
+    }
+
+    renderNotices(filtered);
+}
+
+
+
+
+// INIT
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        loadNoticeAnalytics();
+        fetchNotices();
+
+        fetchNotices();
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+
+        document.querySelectorAll('.filter-btn')
+            .forEach(b => b.classList.remove('active'));
+
+        this.classList.add('active');
+
+        currentNoticeFilter = this.dataset.filter;
+
+        applyNoticeFilters();
+    });
+});
+
+document.getElementById("noticeSearch")
+    .addEventListener("input", applyNoticeFilters);
+
+document.getElementById("noticeSort")
+    .addEventListener("change", applyNoticeFilters);
+
+    }
+);
+
+async function loadNoticeAnalytics() {
+
+    try {
+
+        const res =
+            await fetch(
+                "http://localhost:5000/analytics/notices-priority"
+            );
+
+        const data =
+            await res.json();
+
+        if (!data || data.length === 0) {
+
+            document
+                .getElementById("noticeStats")
+                .innerText =
+                    "No analytics available.";
+
+            return;
+
+        }
+
+        document
+            .getElementById("noticeStats")
+            .innerText =
+                data
+                    .map(
+                        d =>
+                            `${d._id}: ${d.count}`
+                    )
+                    .join(" | ");
+
+    }
+    catch (error) {
+
+        console.error(
+            "Analytics error:",
+            error
+        );
+
+        document
+            .getElementById("noticeStats")
+            .innerText =
+                "Unable to load analytics.";
+
+    }
+
+}
+
+</script>
+</body>
+
+</html>
