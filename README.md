@@ -58,30 +58,33 @@ Originally built as a static frontend project, it has been transformed into a **
 
 
 ---
-CAMPUS_CONNECT/ folder structure 
+## 📁 Project Structure
+
+```text
+CAMPUS_CONNECT/
 │
 ├── backend/
-│ ├── server.js
-│ ├── package.json
-│ ├── package-lock.json
-│ └── node_modules/
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
 │
 ├── data/
-│ ├── events.json
-│ └── notices.json
+│   ├── events.json
+│   └── notices.json
 │
-├── frontend files/
-│ ├── index.html
-│ ├── events.html
-│ ├── notices.html
-│ ├── social.html
-│ ├── map.html
-│
+├── index.html
+├── events.html
+├── notices.html
+├── social.html
+├── map.html
 ├── script.js
 ├── style.css
 ├── campus-map.jpg
 ├── thapar-logo.png
-└── MIT License.md
+├── .gitignore
+├── README.md
+└── LICENSE
+```
 
 ## ⚙️ How to Run the Project
 ```bash
@@ -110,10 +113,14 @@ mongoimport --db campus_connect --collection notices --file notices.json
 
 
 ```
-Future Improvements
+Future Improvements  
+
 Authentication system (students login)
+
 Admin dashboard for event management
+
 Real-time chat system
+
 Cloud deployment (AWS / Render)
 
 Author
