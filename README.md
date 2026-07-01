@@ -58,9 +58,33 @@ Originally built as a static frontend project, it has been transformed into a **
 
 
 ---
+CAMPUS_CONNECT/ folder structure 
+│
+├── backend/
+│ ├── server.js
+│ ├── package.json
+│ ├── package-lock.json
+│ └── node_modules/
+│
+├── data/
+│ ├── events.json
+│ └── notices.json
+│
+├── frontend files/
+│ ├── index.html
+│ ├── events.html
+│ ├── notices.html
+│ ├── social.html
+│ ├── map.html
+│
+├── script.js
+├── style.css
+├── campus-map.jpg
+├── thapar-logo.png
+└── MIT License.md
 
 ## ⚙️ How to Run the Project
-
+```bash
 ### 🔹 Step 1: Clone Repository
 ```bash
 git clone https://github.com/your-username/campus-connect.git
@@ -76,7 +100,7 @@ Simply open:
 
 index.html
 
-in your browser OR use Live Server extension in VS Code.
+In your browser OR use the Live Server extension in VS Code.
 
 🧪 Database Setup (MongoDB)
 Start MongoDB locally or use MongoDB Atlas
@@ -85,12 +109,12 @@ mongoimport --db campus_connect --collection events --file events.json
 mongoimport --db campus_connect --collection notices --file notices.json
 
 
+```
 Future Improvements
 Authentication system (students login)
 Admin dashboard for event management
 Real-time chat system
 Cloud deployment (AWS / Render)
-
 
 Author
 Aastha Deep
